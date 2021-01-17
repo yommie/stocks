@@ -53,10 +53,10 @@ export default {
   }
 
   .slide-enter-active {
-    animation: fade-in .2s ease-in;
+    animation: fade-in .2s ease-in forwards;
   }
 
   .slide-leave-active {
-    animation: fade-out .2s ease-out;
+    animation: fade-out .2s ease-out forwards;
   }
 </style>
