@@ -1,30 +1,62 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <nav-bar/>
+  <transition
+    mode="out-in"
+    name="slide"
+  >
+    <router-view/>
+  </transition>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import NavBar from './components/TheNavBar.vue';
 
-#nav {
-  padding: 30px;
-}
+export default {
+  components: {
+    NavBar,
+  },
+  setup() {
+    const store = useStore();
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+    const isBooted = computed(() => store.getters.isBooted);
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+    if (!isBooted.value) {
+      store.dispatch('bootApp');
+    }
+  },
+};
+</script>
+
+<style scoped>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+
+  .slide-enter-active {
+    animation: fade-in .2s ease-in;
+  }
+
+  .slide-leave-active {
+    animation: fade-out .2s ease-out;
+  }
 </style>
