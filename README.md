@@ -1,4 +1,5 @@
-# stocks-app
+# Stocks App
+Just messing around with Vue 3 and it's Composition API
 
 ## Project setup
 ```
